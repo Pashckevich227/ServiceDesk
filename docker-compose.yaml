@@ -1,0 +1,42 @@
+networks:
+  dev:
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+    restart: on-failure
+    env_file:
+      - backend/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    networks:
+      - dev
+
+
+  database:
+    container_name: postgres_database
+    image: postgres
+    restart: always
+    env_file:
+      - backend/.env
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - dev
+
+  pgadmin:
+    container_name: pgadmin4_admin
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - backend/.env
+    ports:
+      - "5050:80"
+    networks:
+      - dev
