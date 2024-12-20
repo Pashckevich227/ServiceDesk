@@ -1,10 +1,7 @@
 from sqlalchemy import Integer, String, ForeignKey, Text, Enum, TIMESTAMP
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from database import Base
 import datetime
-
-
-Base = declarative_base()
 
 
 class User(Base):
